@@ -1,14 +1,22 @@
 # DevOps Foundation LAB 1 (quick tutorial)
-## Requirements
+## General Idea
 
-Make a local backup scheme using rsync.
+Make a local backup scheme.
+
+## Technical Requirements
 
  - Make a local backup scheme using *rsync*.
  - *Compress* backed up data and have a single archive file as a result.
  - Use *crontab* for scheduling daily backup at 11:00pm.
  - Write logs to /var/logs/
+ 
+## The technical details of general idea
 
-## 1. myBackuper (bash-script)
+- We need a solution (program), which will backup the specified directory to a single compressed file archive. *rsync* program itself is not able to do the "whole job". As a rusult, we need to create a bash-script, and run that script using *Crontab*.
+- Our program will be pretty basic. We will specify the directory we want to backup within a script file.
+- User input will not be used for this time, as it will make our program a little more complicated and excess to the initial basic requirements we had for this laboratory.
+
+## 1. myBackuper.sh (the bash-script)
 
     #!/bin/bash
     
@@ -30,11 +38,11 @@ Make a local backup scheme using rsync.
     tar -zcvf /media/myBackuper_archives/$(date +"%d-%m-%Y_%H-%M")_myBackuper.tar.gz /media/myBackuper_data
 
 
-We need to give ability (to all users, in our demonstrational case) to execute the above script by setting the following permission:
+For our program to run correctly, we need to give ability (to all users, in our demonstrational case) to execute the above script by setting the following permission:
 
 > chmod +x myBackuper.sh
 
-## 2. Cron job
+## 2. Cron job (scheduling)
 
 > Without root privileges *rsync* will not be able to copy all the content of /home directory.
 > So, here is a lifehack to that:
@@ -48,4 +56,5 @@ We need to give ability (to all users, in our demonstrational case) to execute t
 
 This will run our script every day at 11:00pm.
 
-**P.S.** Make sure, your system's local time (and timezone!) and date are set correctly. Use *date* command to see your Linux system's current time and date. In case you need to adjust it on Ubuntu, follow [these instructions](https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28terminal.29).
+**P.S. Important!** Make sure, your system's local time (and timezone!) and date are set correctly. Otherwise, you will wonder why your program is not working as expected.\
+Use *date* command to see your Linux system's current time and date. In case you need to adjust it on Ubuntu, follow [these instructions](https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28terminal.29).
