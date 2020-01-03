@@ -3,8 +3,6 @@
 
 Make a local backup scheme using rsync.
 
-Requirements list:
-
  - Make a local backup scheme using *rsync*.
  - *Compress* backed up data and have a single archive file as a result.
  - Use *crontab* for scheduling daily backup at 11:00pm.
@@ -50,4 +48,4 @@ We need to give ability (to all users, in our demonstrational case) to execute t
 
 This will run our script every day at 11:00pm.
 
-**P.S.** Make sure, your system's local time (and timezone!) and date are set correctly. Use *date* command to see the current time and date. In case you need to adjust it on Ubuntu, follow [these instructions](https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28terminal.29).
+**P.S.** Make sure, your system's local time (and timezone!) and date are set correctly. Use *date* command to see your Linux system's current time and date. In case you need to adjust it on Ubuntu, follow [these instructions](https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28terminal.29).
